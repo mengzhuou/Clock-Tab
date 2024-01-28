@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        "theme-primary": "#00668A",
-        "theme-secondary": "#004E71",
+        "theme-primary": "white",
+        "theme-secondary": "light-yellow",
       }
     },
     fontFamily: {

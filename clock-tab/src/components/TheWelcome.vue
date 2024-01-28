@@ -1,6 +1,6 @@
 <template>
   <header class="sticky top-0 shadow-lg bg-theme-secondary">
-    <nav class="container flex flex-col items-center gap-4 py-6 text-white sm:flex-row">
+    <nav class="container flex flex-col items-center gap-4 py-6 font-bold text-black sm:flex-row">
       <div class="flex items-center gap-3">
         <i class="text-2xl fa-solid fa-clock"></i>
         <p class="text-2xl">Digital Analog Clock</p>
@@ -10,11 +10,11 @@
 
   <div class="container mt-8 text-center">
     <p class="mb-4 text-4xl font-bold">Current Time: {{ currentTime }}</p>
-    <p class="text-lg">Current Date: {{ currentDate }}</p>
+    <p class="mb-6 text-lg">Current Date: {{ currentDate }}</p>
   </div>
 
   <div class="container">
-    <canvas ref="canvas" width="400" height="400" style="background-color:#333"></canvas>
+    <canvas ref="canvas" width="400" height="400" style="background-color: transparent; border: 2px solid #000000;"></canvas>
   </div>
 </template>
 
@@ -44,7 +44,6 @@
     clearInterval(ctx.intervalId);
   });
 
-
   function getCurrentTime() {
     const now = new Date();
     return now.toLocaleTimeString();
@@ -54,13 +53,13 @@
     const now = new Date();
     return now.toLocaleDateString();
   }
-
+  
   function drawClock() {
     try {
       if (!ctx) return;
       const centerX = canvas.value.width / 2;
       const centerY = canvas.value.height / 2;
-      const radius = canvas.value.width / 2 - 10; // Adjust as needed
+      const radius = canvas.value.width / 2 - 10; 
   
       // Clear the canvas
       ctx.clearRect(0, 0, canvas.value.width, canvas.value.height);
@@ -68,7 +67,7 @@
       // Draw clock face
       ctx.beginPath();
       ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-      ctx.fillStyle = '#333'; // Adjust as needed
+      ctx.fillStyle = 'transparent'; 
       ctx.fill();
       ctx.stroke();
   
@@ -85,7 +84,7 @@
         ctx.moveTo(startX, startY);
         ctx.lineTo(endX, endY);
       }
-      ctx.strokeStyle = 'white'; // Adjust as needed
+      ctx.strokeStyle = 'black'; 
       ctx.stroke();
   
       // Get current time
@@ -94,11 +93,6 @@
       const minutes = now.getMinutes();
       const seconds = now.getSeconds();
       
-  
-      // Draw clock hands
-      // drawClockHand(centerX, centerY, hours * 30 + minutes * 0.5, radius * 0.6, 8, 'white');
-      // drawClockHand(centerX, centerY, minutes * 6 + seconds * 0.1, radius * 0.8, 4, 'white');
-      // drawClockHand(centerX, centerY, seconds * 6, radius * 0.9, 2, 'red'); 
       drawClockHour(centerX, centerY, hours, hours * 30 + minutes * 0.5, radius * 0.6, 8, 'white');
       drawClockMinute(centerX, centerY, minutes, minutes * 6 + seconds * 0.1, radius * 0.8, 4, 'white');
       drawClockSecond(centerX, centerY, seconds, seconds * 6, radius * 0.9, 2, 'red'); 
@@ -108,11 +102,12 @@
   }
 
   function drawClockHour(x, y, hour, angle, length, width, color) {
-    const lineLengths = [0, -35, -70]; // Adjust as needed
+    // const lineLengths = [-10, -50, -90]; 
+    const lineLengths = [0, -35, -70]; 
 
     for (let i = 0; i < lineLengths.length; i++) {
       const currentLength = length + lineLengths[i];
-      drawTextAlongLine(x, y, hour.toString(), angle, currentLength, width, color);
+      drawHourTextAlongLine(x, y, hour.toString(), angle, currentLength, width, color);
     }
   }
 
@@ -121,7 +116,7 @@
 
     for (let i = 0; i < lineLengths.length; i++) {
       const currentLength = length + lineLengths[i];
-      drawTextAlongLine(x, y, minute.toString(), angle, currentLength, width, color);
+      drawMinuteTextAlongLine(x, y, minute.toString(), angle, currentLength, width, color);
     }
   }
 
@@ -130,11 +125,23 @@
     
     for (let i = 0; i < lineLengths.length; i++) {
       const currentLength = length + lineLengths[i];
-      drawTextAlongLine(x, y, second.toString(), angle, currentLength, width, color);
+      drawSecondTextAlongLine(x, y, second.toString(), angle, currentLength, width, color);
     }
   }
 
-  function drawTextAlongLine(x, y, text, angle, length, width, color) {
+  function drawHourTextAlongLine(x, y, text, angle, length, width, color) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
+    const endY = y + length * Math.sin((angle - 90) * (Math.PI / 180));
+    const chosenText = text.toString(); 
+    const textX = endX - 5;
+    const textY = endY + 5; 
+    ctx.font = 'bold 16px Times New Roman';
+    ctx.fillStyle = 'green'; 
+    ctx.fillText(chosenText, textX, textY);
+  }
+  function drawMinuteTextAlongLine(x, y, text, angle, length, width, color) {
     ctx.beginPath();
     ctx.moveTo(x, y);
     const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
@@ -143,7 +150,19 @@
     const textX = endX - 5;
     const textY = endY + 5; 
     ctx.font = 'bold 16px Arial';
-    ctx.fillStyle = 'white'; 
+    ctx.fillStyle = 'blue'; 
+    ctx.fillText(chosenText, textX, textY);
+  }
+  function drawSecondTextAlongLine(x, y, text, angle, length, width, color) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
+    const endY = y + length * Math.sin((angle - 90) * (Math.PI / 180));
+    const chosenText = text.toString(); 
+    const textX = endX - 5;
+    const textY = endY + 5; 
+    ctx.font = 'bold 16px Verdana';
+    ctx.fillStyle = 'red'; 
     ctx.fillText(chosenText, textX, textY);
   }
 </script>
