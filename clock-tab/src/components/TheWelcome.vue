@@ -20,6 +20,8 @@
       <div class="container mt-8 text-center" >
         <p class="mb-4 text-4xl font-bold" :style="{ color: darkMode ? 'white' : 'black' }">{{ currentTime }}</p>
         <p class="mb-6 text-2xl font-semibold" :style="{ color: darkMode ? 'white' : 'black' }">{{ currentDate }}</p>
+      </div>
+      <div class="container flex justify-center mt-8 text-center" >
         <canvas ref="canvas" width="350" height="350" style=" border: 2px solid #000000;" ></canvas>
       </div>
     </div>
