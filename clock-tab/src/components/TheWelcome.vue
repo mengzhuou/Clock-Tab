@@ -1,20 +1,26 @@
 <template>
-  <header class="sticky top-0 shadow-lg bg-theme-secondary">
+  <header class="sticky top-0 shadow-lg" :class="{ 'bg-theme-secondary': darkMode }">
     <nav class="container flex flex-col items-center gap-4 py-6 font-bold text-black sm:flex-row">
       <div class="flex items-center gap-3">
         <i class="text-2xl fa-solid fa-clock"></i>
         <p class="text-2xl">Digital Analog Clock</p>
       </div>
+      <div>
+        <button @click="toggleDarkMode">Dark Mode</button>
+      </div>
     </nav>
   </header>
 
-  <div class="container mt-8 text-center">
-    <p class="mb-4 text-4xl font-bold">Current Time: {{ currentTime }}</p>
-    <p class="mb-6 text-lg">Current Date: {{ currentDate }}</p>
-  </div>
-
-  <div class="container">
-    <canvas ref="canvas" width="400" height="400" style="background-color: transparent; border: 2px solid #000000;"></canvas>
+  <div :class="{ 'bg-theme-secondary': darkMode }">
+    <div class="container mt-8 text-center" >
+      <p class="mb-4 text-4xl font-bold">Current Time: {{ currentTime }}</p>
+      <p class="mb-6 text-lg">Current Date: {{ currentDate }}</p>
+    </div>
+  
+    <div class="container">
+      <canvas ref="canvas" width="400" height="400" style="background-color: transparent; border: 2px solid #000000;"></canvas>
+    </div>
+    
   </div>
 </template>
 
@@ -26,6 +32,7 @@
   
   const canvas = ref(null);
   let ctx;
+  let darkMode = ref(false);
 
   onMounted(() => {
     ctx = canvas.value.getContext('2d');
@@ -44,6 +51,10 @@
     clearInterval(ctx.intervalId);
   });
 
+  const toggleDarkMode = () => {
+    darkMode.value = !darkMode.value;
+  }
+
   function getCurrentTime() {
     const now = new Date();
     return now.toLocaleTimeString();
@@ -57,12 +68,13 @@
   function drawClock() {
     try {
       if (!ctx) return;
-      const centerX = canvas.value.width / 2;
-      const centerY = canvas.value.height / 2;
-      const radius = canvas.value.width / 2 - 10; 
+      const canvasValue = canvas.value;
+      const centerX = canvasValue.width / 2;
+      const centerY = canvasValue.height / 2;
+      const radius = canvasValue.width / 2 - 10; 
   
       // Clear the canvas
-      ctx.clearRect(0, 0, canvas.value.width, canvas.value.height);
+      ctx.clearRect(0, 0, canvasValue.width, canvasValue.height);
   
       // Draw clock face
       ctx.beginPath();
