@@ -1,30 +1,28 @@
 <template>
-  <header class="sticky top-0 shadow-lg" :class="{ 'bg-theme-secondary': darkMode }">
-    <nav class="container flex flex-col items-center gap-4 py-6 font-bold text-black sm:flex-row">
-      <div class="flex items-center gap-3">
-        <i class="text-2xl fa-solid fa-clock"></i>
-        <p class="text-2xl">Digital Analog Clock</p>
-      </div>
-      <div class="flex items-center ml-6">
-        <label class="switch">
-          <input type="checkbox" v-model="darkMode" @click="toggleDarkMode">
-          <span class="slider"></span>
-        </label>
-        <span class="ml-2">{{ darkMode ? 'Dark Mode' : 'Light Mode' }}</span>
-      </div>
-    </nav>
-  </header>
-
-  <div :class="{ 'bg-theme-secondary': darkMode }">
-    <div class="container mt-8 text-center" >
-      <p class="mb-4 text-4xl font-bold">Current Time: {{ currentTime }}</p>
-      <p class="mb-6 text-lg">Current Date: {{ currentDate }}</p>
-    </div>
+   <div class="flex-grow" :class="{ 'bg-theme-secondary': darkMode }">
+    <header class="sticky top-0 shadow-lg" :class="{ 'bg-theme-secondary': darkMode }">
+      <nav class="container flex flex-col items-center gap-4 py-6 font-bold text-black sm:flex-row">
+        <div class="flex items-center gap-3">
+          <i class="text-2xl fa-solid fa-clock"></i>
+          <p class="text-2xl">Digital Analog Clock</p>
+        </div>
+        <div class="flex items-center ml-6">
+          <label class="switch">
+            <input type="checkbox" v-model="darkMode" @click="toggleDarkMode">
+            <span class="slider"></span>
+          </label>
+          <span class="ml-2">{{ darkMode ? 'Dark Mode' : 'Light Mode' }}</span>
+        </div>
+      </nav>
+    </header>
   
-    <div class="container">
-      <canvas ref="canvas" width="400" height="400" style="background-color: transparent; border: 2px solid #000000;"></canvas>
+    <div :class="{ 'bg-theme-secondary': darkMode }">
+      <div class="container mt-8 text-center" >
+        <p class="mb-4 text-4xl font-bold">Current Time: {{ currentTime }}</p>
+        <p class="mb-6 text-lg">Current Date: {{ currentDate }}</p>
+        <canvas ref="canvas" width="350" height="350" style="background-color: transparent; border: 2px solid #000000;"></canvas>
+      </div>
     </div>
-    
   </div>
 </template>
 
@@ -185,6 +183,10 @@
 
 
 <style scoped>
+
+.flex-grow {
+  flex-grow: 1;
+}
 .switch {
   position: relative;
   display: inline-block;
