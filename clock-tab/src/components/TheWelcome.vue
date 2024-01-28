@@ -1,7 +1,7 @@
 <template>
    <div class="flex-grow" :class="{ 'bg-theme-secondary': darkMode }">
     <header class="sticky top-0 shadow-lg" :class="{ 'bg-theme-secondary': darkMode }">
-      <nav class="container flex flex-col items-center gap-4 py-6 font-bold text-black sm:flex-row">
+      <nav class="container flex flex-col items-center justify-between gap-4 py-6 font-bold text-black sm:flex-row">
         <div class="flex items-center gap-3">
           <i class="text-2xl fa-solid fa-clock"></i>
           <p class="text-2xl">Digital Analog Clock</p>
@@ -18,11 +18,20 @@
   
     <div :class="{ 'bg-theme-secondary': darkMode }">
       <div class="container mt-8 text-center" >
-        <p class="mb-4 text-4xl font-bold">Current Time: {{ currentTime }}</p>
-        <p class="mb-6 text-lg">Current Date: {{ currentDate }}</p>
+        <p class="mb-4 text-4xl font-bold">{{ currentTime }}</p>
+        <p class="mb-6 text-2xl font-semibold">{{ currentDate }}</p>
         <canvas ref="canvas" width="350" height="350" style="background-color: transparent; border: 2px solid #000000;"></canvas>
       </div>
     </div>
+
+    <footer>
+      <div className="footer-text" >
+        Designed with &#10084; by 
+      </div>
+      <div className="footer-find-me">
+        <a href="https://mengzhuou.github.io/">Mengzhu Ou</a>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -244,4 +253,45 @@ input:checked + .slider:before {
   background-color: #333; 
   color: #fff; 
 }
+
+
+footer {
+  background-color: rgb(233, 227, 227);
+  color: rgb(0, 0, 0);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer .footer-text {
+  font-size: 20px;
+  display: inline-block;
+}
+
+footer .footer-find-me {
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  margin-left: 10px;
+  display: inline-block;
+  border: 1px dashed rgb(0, 0, 0);
+  transition: border-color 0.3s ease;
+}
+
+footer .footer-find-me a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+footer .footer-find-me a:hover {
+  text-decoration:none;
+  border-color: rgb(0, 0, 0);
+}
+
 </style>
