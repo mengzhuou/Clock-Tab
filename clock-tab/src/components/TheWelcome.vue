@@ -108,58 +108,28 @@
   }
 
   function drawClockHour(x, y, hour, angle, length, width, color) {
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
-    const endY = y + length * Math.sin((angle - 90) * (Math.PI / 180));
-    const hourText = hour.toString(); // Convert the hour to a string
-    const textX = endX - 5; // Adjust the position for text
-    const textY = endY + 5; // Adjust the position for text
-    console.log("hourText", hourText)
-    ctx.font = 'bold 16px Arial'; // Set font style
-    ctx.fillStyle = 'white'; // Set text color
-    ctx.fillText(hourText, textX, textY);
+    drawTextAlongLine(x, y, hour.toString(), angle, length, width, color);
   }
+
   function drawClockMinute(x, y, minute, angle, length, width, color) {
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
-    const endY = y + length * Math.sin((angle - 90) * (Math.PI / 180));
-    const minuteText = minute.toString(); // Convert the hour to a string
-    const textX = endX - 5; // Adjust the position for text
-    const textY = endY + 5; // Adjust the position for text
-
-    ctx.font = 'bold 16px Arial'; // Set font style
-    ctx.fillStyle = 'white'; // Set text color
-    ctx.fillText(minuteText, textX, textY);
+    drawTextAlongLine(x, y, minute.toString(), angle, length, width, color);
   }
-  
+
   function drawClockSecond(x, y, second, angle, length, width, color) {
+    drawTextAlongLine(x, y, second.toString(), angle, length, width, color);
+  }
+
+  function drawTextAlongLine(x, y, text, angle, length, width, color) {
     ctx.beginPath();
     ctx.moveTo(x, y);
     const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
     const endY = y + length * Math.sin((angle - 90) * (Math.PI / 180));
-    const secondText = second.toString(); // Convert the hour to a string
+    const chosenText = text.toString(); // Convert the hour to a string
     const textX = endX - 5; // Adjust the position for text
     const textY = endY + 5; // Adjust the position for text
 
     ctx.font = 'bold 16px Arial'; // Set font style
     ctx.fillStyle = 'white'; // Set text color
-    ctx.fillText(secondText, textX, textY);
+    ctx.fillText(chosenText, textX, textY);
   }
-
-  // function drawClockHand(x, y, angle, length, width, color) {
-  //   ctx.beginPath();
-  //   ctx.moveTo(x, y);
-  //   const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
-  //   const endY = y + length * Math.sin((angle - 90) * (Math.PI / 180));
-  //   console.log("endX", endX)
-  //   console.log("endY", endY)
-  //   console.log("ctx", ctx)
-
-  //   ctx.lineTo(endX, endY);
-  //   ctx.lineWidth = width;
-  //   ctx.strokeStyle = color;
-  //   ctx.stroke();
-  // }
 </script>
