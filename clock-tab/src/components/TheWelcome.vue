@@ -93,24 +93,73 @@
       const hours = now.getHours();
       const minutes = now.getMinutes();
       const seconds = now.getSeconds();
+      
   
       // Draw clock hands
-      drawClockHand(centerX, centerY, hours * 30 + minutes * 0.5, radius * 0.6, 8, 'white');
-      drawClockHand(centerX, centerY, minutes * 6 + seconds * 0.1, radius * 0.8, 4, 'white');
-      drawClockHand(centerX, centerY, seconds * 6, radius * 0.9, 2, 'red'); // Adjust color as needed
+      // drawClockHand(centerX, centerY, hours * 30 + minutes * 0.5, radius * 0.6, 8, 'white');
+      // drawClockHand(centerX, centerY, minutes * 6 + seconds * 0.1, radius * 0.8, 4, 'white');
+      // drawClockHand(centerX, centerY, seconds * 6, radius * 0.9, 2, 'red'); 
+      drawClockHour(centerX, centerY, hours, hours * 30 + minutes * 0.5, radius * 0.6, 8, 'white');
+      drawClockMinute(centerX, centerY, minutes, minutes * 6 + seconds * 0.1, radius * 0.8, 4, 'white');
+      drawClockSecond(centerX, centerY, seconds, seconds * 6, radius * 0.9, 2, 'red'); 
     } catch (error){
       console.error("error: ", error);
     }
   }
 
-  function drawClockHand(x, y, angle, length, width, color) {
+  function drawClockHour(x, y, hour, angle, length, width, color) {
     ctx.beginPath();
     ctx.moveTo(x, y);
     const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
     const endY = y + length * Math.sin((angle - 90) * (Math.PI / 180));
-    ctx.lineTo(endX, endY);
-    ctx.lineWidth = width;
-    ctx.strokeStyle = color;
-    ctx.stroke();
+    const hourText = hour.toString(); // Convert the hour to a string
+    const textX = endX - 5; // Adjust the position for text
+    const textY = endY + 5; // Adjust the position for text
+    console.log("hourText", hourText)
+    ctx.font = 'bold 16px Arial'; // Set font style
+    ctx.fillStyle = 'white'; // Set text color
+    ctx.fillText(hourText, textX, textY);
   }
+  function drawClockMinute(x, y, minute, angle, length, width, color) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
+    const endY = y + length * Math.sin((angle - 90) * (Math.PI / 180));
+    const minuteText = minute.toString(); // Convert the hour to a string
+    const textX = endX - 5; // Adjust the position for text
+    const textY = endY + 5; // Adjust the position for text
+
+    ctx.font = 'bold 16px Arial'; // Set font style
+    ctx.fillStyle = 'white'; // Set text color
+    ctx.fillText(minuteText, textX, textY);
+  }
+  
+  function drawClockSecond(x, y, second, angle, length, width, color) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
+    const endY = y + length * Math.sin((angle - 90) * (Math.PI / 180));
+    const secondText = second.toString(); // Convert the hour to a string
+    const textX = endX - 5; // Adjust the position for text
+    const textY = endY + 5; // Adjust the position for text
+
+    ctx.font = 'bold 16px Arial'; // Set font style
+    ctx.fillStyle = 'white'; // Set text color
+    ctx.fillText(secondText, textX, textY);
+  }
+
+  // function drawClockHand(x, y, angle, length, width, color) {
+  //   ctx.beginPath();
+  //   ctx.moveTo(x, y);
+  //   const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
+  //   const endY = y + length * Math.sin((angle - 90) * (Math.PI / 180));
+  //   console.log("endX", endX)
+  //   console.log("endY", endY)
+  //   console.log("ctx", ctx)
+
+  //   ctx.lineTo(endX, endY);
+  //   ctx.lineWidth = width;
+  //   ctx.strokeStyle = color;
+  //   ctx.stroke();
+  // }
 </script>
