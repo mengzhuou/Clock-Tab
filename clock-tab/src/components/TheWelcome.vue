@@ -108,15 +108,30 @@
   }
 
   function drawClockHour(x, y, hour, angle, length, width, color) {
-    drawTextAlongLine(x, y, hour.toString(), angle, length, width, color);
+    const lineLengths = [0, -35, -70]; // Adjust as needed
+
+    for (let i = 0; i < lineLengths.length; i++) {
+      const currentLength = length + lineLengths[i];
+      drawTextAlongLine(x, y, hour.toString(), angle, currentLength, width, color);
+    }
   }
 
   function drawClockMinute(x, y, minute, angle, length, width, color) {
-    drawTextAlongLine(x, y, minute.toString(), angle, length, width, color);
+    const lineLengths = [0, -35, -70, -105]; 
+
+    for (let i = 0; i < lineLengths.length; i++) {
+      const currentLength = length + lineLengths[i];
+      drawTextAlongLine(x, y, minute.toString(), angle, currentLength, width, color);
+    }
   }
 
   function drawClockSecond(x, y, second, angle, length, width, color) {
-    drawTextAlongLine(x, y, second.toString(), angle, length, width, color);
+    const lineLengths = [0, -35, -70, -105, -140];
+    
+    for (let i = 0; i < lineLengths.length; i++) {
+      const currentLength = length + lineLengths[i];
+      drawTextAlongLine(x, y, second.toString(), angle, currentLength, width, color);
+    }
   }
 
   function drawTextAlongLine(x, y, text, angle, length, width, color) {
@@ -124,12 +139,11 @@
     ctx.moveTo(x, y);
     const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
     const endY = y + length * Math.sin((angle - 90) * (Math.PI / 180));
-    const chosenText = text.toString(); // Convert the hour to a string
-    const textX = endX - 5; // Adjust the position for text
-    const textY = endY + 5; // Adjust the position for text
-
-    ctx.font = 'bold 16px Arial'; // Set font style
-    ctx.fillStyle = 'white'; // Set text color
+    const chosenText = text.toString(); 
+    const textX = endX - 5;
+    const textY = endY + 5; 
+    ctx.font = 'bold 16px Arial';
+    ctx.fillStyle = 'white'; 
     ctx.fillText(chosenText, textX, textY);
   }
 </script>
