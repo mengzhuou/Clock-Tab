@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         "theme-primary": "white",
-        "theme-secondary": "grey",
+        "theme-secondary": "black",
       }
     },
     fontFamily: {

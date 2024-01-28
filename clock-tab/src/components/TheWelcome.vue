@@ -1,34 +1,34 @@
 <template>
    <div class="flex-grow" :class="{ 'bg-theme-secondary': darkMode }">
-    <header class="sticky top-0 shadow-lg" :class="{ 'bg-theme-secondary': darkMode }">
+    <header class="sticky top-0 shadow-lg" :class="{ 'bg-theme-secondary': darkMode }"   :style="{ border: darkMode ? ' 2px solid #FFFFFF' : ' ' }">
       <nav class="container flex flex-col items-center justify-between gap-4 py-6 font-bold text-black sm:flex-row">
         <div class="flex items-center gap-3">
-          <i class="text-2xl fa-solid fa-clock"></i>
-          <p class="text-2xl">Digital Analog Clock</p>
+          <i class="text-2xl fa-solid fa-clock" :style="{ color: darkMode ? 'white' : 'black' }"></i>
+          <p class="text-2xl" :style="{ color: darkMode ? 'white' : 'black' }">Digital Analog Clock</p>
         </div>
         <div class="flex items-center ml-6">
           <label class="switch">
             <input type="checkbox" v-model="darkMode" @click="toggleDarkMode">
             <span class="slider"></span>
           </label>
-          <span class="ml-2">{{ darkMode ? 'Dark Mode' : 'Light Mode' }}</span>
+          <span class="ml-2" :style="{ color: darkMode ? 'white' : 'black' }">{{ darkMode ? 'Dark Mode' : 'Light Mode' }}</span>
         </div>
       </nav>
     </header>
   
     <div :class="{ 'bg-theme-secondary': darkMode }">
       <div class="container mt-8 text-center" >
-        <p class="mb-4 text-4xl font-bold">{{ currentTime }}</p>
-        <p class="mb-6 text-2xl font-semibold">{{ currentDate }}</p>
-        <canvas ref="canvas" width="350" height="350" style="background-color: transparent; border: 2px solid #000000;"></canvas>
+        <p class="mb-4 text-4xl font-bold" :style="{ color: darkMode ? 'white' : 'black' }">{{ currentTime }}</p>
+        <p class="mb-6 text-2xl font-semibold" :style="{ color: darkMode ? 'white' : 'black' }">{{ currentDate }}</p>
+        <canvas ref="canvas" width="350" height="350" style=" border: 2px solid #000000;" ></canvas>
       </div>
     </div>
 
-    <footer>
+    <footer :class="{ 'dark-mode': darkMode }">
       <div className="footer-text" >
         Designed with &#10084; by 
       </div>
-      <div className="footer-find-me">
+      <div className="footer-find-me" :style="{ border: darkMode ? '2px solid white' : '2px solid black', color: darkMode? 'white' : 'black', background: darkMode? 'white': 'transparent' }">
         <a href="https://mengzhuou.github.io/">Mengzhu Ou</a>
       </div>
     </footer>
@@ -107,7 +107,8 @@
         ctx.moveTo(startX, startY);
         ctx.lineTo(endX, endY);
       }
-      ctx.strokeStyle = 'black'; 
+      ctx.strokeStyle = darkMode? 'white' : 'black'; //has a bug that circle is not black in Light Mode. But the UI's surprising okay
+
       ctx.stroke();
   
       // Get current time
@@ -116,9 +117,9 @@
       const minutes = now.getMinutes();
       const seconds = now.getSeconds();
       
-      drawClockHour(centerX, centerY, hours, hours * 30 + minutes * 0.5, radius * 0.6, 8, 'white');
-      drawClockMinute(centerX, centerY, minutes, minutes * 6 + seconds * 0.1, radius * 0.8, 4, 'white');
-      drawClockSecond(centerX, centerY, seconds, seconds * 6, radius * 0.9, 2, 'red'); 
+      drawClockHour(centerX, centerY, hours, hours * 30 + minutes * 0.5, radius * 0.6, 'red');
+      drawClockMinute(centerX, centerY, minutes, minutes * 6 + seconds * 0.1, radius * 0.8, 'green');
+      drawClockSecond(centerX, centerY, seconds, seconds * 6, radius * 0.9, 'blue'); 
     } catch (error){
       console.error("error: ", error);
     }
@@ -152,7 +153,7 @@
     }
   }
 
-  function drawHourTextAlongLine(x, y, text, angle, length, width, color) {
+  function drawHourTextAlongLine(x, y, text, angle, length, color) {
     ctx.beginPath();
     ctx.moveTo(x, y);
     const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
@@ -161,10 +162,10 @@
     const textX = endX - 5;
     const textY = endY + 5; 
     ctx.font = 'bold 16px Times New Roman';
-    ctx.fillStyle = 'green'; 
+    ctx.fillStyle = color; 
     ctx.fillText(chosenText, textX, textY);
   }
-  function drawMinuteTextAlongLine(x, y, text, angle, length, width, color) {
+  function drawMinuteTextAlongLine(x, y, text, angle, length, color) {
     ctx.beginPath();
     ctx.moveTo(x, y);
     const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
@@ -173,10 +174,10 @@
     const textX = endX - 5;
     const textY = endY + 5; 
     ctx.font = 'bold 16px Arial';
-    ctx.fillStyle = 'blue'; 
+    ctx.fillStyle = color; 
     ctx.fillText(chosenText, textX, textY);
   }
-  function drawSecondTextAlongLine(x, y, text, angle, length, width, color) {
+  function drawSecondTextAlongLine(x, y, text, angle, length, color) {
     ctx.beginPath();
     ctx.moveTo(x, y);
     const endX = x + length * Math.cos((angle - 90) * (Math.PI / 180));
@@ -185,7 +186,7 @@
     const textX = endX - 5;
     const textY = endY + 5; 
     ctx.font = 'bold 16px Verdana';
-    ctx.fillStyle = 'red'; 
+    ctx.fillStyle = color; 
     ctx.fillText(chosenText, textX, textY);
   }
 </script>
@@ -240,7 +241,7 @@ input:checked + .slider {
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #ffffff;
+  box-shadow: 0 0 3px #ffffff;
 }
 
 input:checked + .slider:before {
@@ -249,14 +250,8 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-.bg-theme-secondary.dark-mode {
-  background-color: #333; 
-  color: #fff; 
-}
-
-
 footer {
-  background-color: rgb(233, 227, 227);
+  background-color: var(--footer-bg-color);
   color: rgb(0, 0, 0);
   position: fixed;
   left: 0;
@@ -268,6 +263,12 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 2px;
+}
+
+footer.dark-mode {
+  background-color: transparent;
+  color: white;
 }
 
 footer .footer-text {
@@ -277,10 +278,8 @@ footer .footer-text {
 
 footer .footer-find-me {
   font-size: 20px;
-  color: rgb(0, 0, 0);
   margin-left: 10px;
   display: inline-block;
-  border: 1px dashed rgb(0, 0, 0);
   transition: border-color 0.3s ease;
 }
 
@@ -289,9 +288,5 @@ footer .footer-find-me a {
   text-decoration: none;
 }
 
-footer .footer-find-me a:hover {
-  text-decoration:none;
-  border-color: rgb(0, 0, 0);
-}
 
 </style>
