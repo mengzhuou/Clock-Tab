@@ -119,8 +119,8 @@
       const minutes = now.getMinutes();
       const seconds = now.getSeconds();
       
-      drawClockHour(centerX, centerY, hours, hours * 30 + minutes * 0.5, radius * 0.6, 'red');
-      drawClockMinute(centerX, centerY, minutes, minutes * 6 + seconds * 0.1, radius * 0.8, 'green');
+      drawClockHour(centerX, centerY, hours, hours * 30 + minutes * 0.5, radius * 0.6, 'green');
+      drawClockMinute(centerX, centerY, minutes, minutes * 6 + seconds * 0.1, radius * 0.8, 'red');
       drawClockSecond(centerX, centerY, seconds, seconds * 6, radius * 0.9, 'blue'); 
     } catch (error){
       console.error("error: ", error);
